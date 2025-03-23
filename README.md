@@ -8,6 +8,11 @@ A simple library to document [Pydantic](https://docs.pydantic.dev/) models for s
 pip install pydantic-prompt
 ```
 
+## Requirements
+
+- Python 3.11 or higher
+- Pydantic 2.0 or higher
+
 ## Features
 
 - Document Pydantic model fields using standard Python docstrings
