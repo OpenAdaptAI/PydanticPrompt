@@ -1,15 +1,3 @@
-:::thinking
-Let me create a comprehensive README.md file for the PydanticPrompt project, incorporating the development instructions, examples, and other important information.
-
-The updated README should include:
-1. Introduction and description
-2. Installation instructions
-3. Usage examples with various scenarios
-4. Development setup
-5. License information
-
-I'll use the markdown content we've developed so far and organize it into a cohesive document.
-:::
 # PydanticPrompt
 
 A simple library to document [Pydantic](https://docs.pydantic.dev/) models for structured LLM outputs using standard Python docstrings.
@@ -25,7 +13,8 @@ pip install pydantic-prompt
 - Document Pydantic model fields using standard Python docstrings
 - Format field documentation for LLM prompts with a single method call
 - Automatic type inference and display
-- Optional validation rule display
+- Optional validation rule documentation
+- Warnings for undocumented fields
 - Seamlessly embeds documentation in your prompts
 
 ## Usage
@@ -35,9 +24,9 @@ pip install pydantic-prompt
 ```python
 from pydantic import BaseModel, Field
 from typing import Optional
-from pydantic_prompt import llm_documented
+from pydantic_prompt import prompt_schema
 
-@llm_documented
+@prompt_schema
 class Person(BaseModel):
     name: str
     """The person's full name"""
@@ -73,10 +62,10 @@ Person:
 
 ```python
 from pydantic import BaseModel
-from pydantic_prompt import llm_documented
+from pydantic_prompt import prompt_schema
 from typing import List
 
-@llm_documented
+@prompt_schema
 class Address(BaseModel):
     street: str
     """Street name and number"""
@@ -87,7 +76,7 @@ class Address(BaseModel):
     postal_code: str
     """Postal or ZIP code"""
 
-@llm_documented
+@prompt_schema
 class Contact(BaseModel):
     name: str
     """Full name of the contact"""
@@ -116,14 +105,42 @@ Person:
 - email (str, optional): Contact email address if available
 ```
 
+### Warnings for Undocumented Fields
+
+By default, PydanticPrompt warns you when fields don't have docstrings:
+
+```python
+@prompt_schema
+class PartiallyDocumented(BaseModel):
+    name: str
+    """This field has a docstring"""
+    
+    age: int
+    # Missing docstring will generate a warning
+```
+
+Output:
+```
+UserWarning: Field 'age' in PartiallyDocumented has no docstring. Add a docstring for better LLM prompts.
+```
+
+To disable these warnings:
+
+```python
+@prompt_schema(warn_undocumented=False)
+class SilentModel(BaseModel):
+    name: str
+    # No warning for missing docstring
+```
+
 ## Real-World Example
 
 ```python
 from pydantic import BaseModel, Field
-from pydantic_prompt import llm_documented
+from pydantic_prompt import prompt_schema
 from typing import List
 
-@llm_documented
+@prompt_schema
 class ProductReview(BaseModel):
     product_name: str
     """The exact name of the product being reviewed"""
