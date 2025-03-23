@@ -1,3 +1,15 @@
+:::thinking
+Let me create a comprehensive README.md file for the PydanticPrompt project, incorporating the development instructions, examples, and other important information.
+
+The updated README should include:
+1. Introduction and description
+2. Installation instructions
+3. Usage examples with various scenarios
+4. Development setup
+5. License information
+
+I'll use the markdown content we've developed so far and organize it into a cohesive document.
+:::
 # PydanticPrompt
 
 A simple library to document [Pydantic](https://docs.pydantic.dev/) models for structured LLM outputs using standard Python docstrings.
@@ -161,6 +173,84 @@ The library is designed to be lightweight and focused on a single task: making i
 - **Developer-Friendly**: Uses standard Python docstrings
 - **LLM-Friendly**: Produces clear, structured documentation that LLMs can easily understand
 - **Maintainability**: When your models change, your prompt documentation automatically updates
+
+## Development
+
+### Setting up the development environment
+
+Clone the repository:
+
+```bash
+git clone https://github.com/OpenAdaptAI/PydanticPrompt.git
+cd PydanticPrompt
+```
+
+Create and activate a virtual environment with `uv`:
+
+```bash
+# Create a virtual environment
+uv venv
+
+# Activate the virtual environment
+source .venv/bin/activate  # On Unix/macOS
+# or
+.venv\Scripts\activate  # On Windows
+```
+
+Install the package in development mode:
+
+```bash
+# Install the package
+uv pip install -e .
+```
+
+Install development dependencies:
+
+```bash
+# Install dev dependencies
+uv pip install -e ".[dev]"
+```
+
+### Note about hardlinking warning
+
+If you see a warning about hardlinking when installing:
+
+```
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+```
+
+This is normal when the cache and target directories are on different filesystems. You can suppress this warning with:
+
+```bash
+export UV_LINK_MODE=copy
+```
+
+### Running tests
+
+Make sure your virtual environment is activated, then run:
+
+```bash
+# Run all tests
+pytest
+
+# Run with verbose output
+pytest -v
+
+# Run with coverage information
+pytest --cov=pydantic_prompt
+```
+
+### Code formatting and linting
+
+Ruff handles both linting and formatting:
+
+```bash
+# Check code
+ruff check .
+
+# Format code (includes import sorting)
+ruff format .
+```
 
 ## License
 
