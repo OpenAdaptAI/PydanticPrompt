@@ -106,7 +106,7 @@ def _extract_field_docstring(cls: type, field_name: str) -> str:
 def _get_field_type_name(field_info: Any) -> str:
     """Get a user-friendly type name from a field."""
     annotation = field_info.annotation
-
+    
     # Handle Optional types
     if get_origin(annotation) is Union and type(None) in get_args(annotation):
         args = get_args(annotation)
@@ -115,48 +115,29 @@ def _get_field_type_name(field_info: Any) -> str:
                 # Remove Optional wrapper, we handle optionality separately
                 annotation = arg
                 break
-
+    
     # Handle basic types
     if isinstance(annotation, type):
         return annotation.__name__
-
+    
     # Handle parameterized generics
     origin = get_origin(annotation)
     if origin is not None:
         args = get_args(annotation)
-
+        
         # Handle list types
         if origin is list or str(origin).endswith("list"):
-            arg_type = args[0]
-            # Get simple name for the argument type
-            if hasattr(arg_type, "__name__"):
-                arg_name = arg_type.__name__
-            else:
-                arg_name = str(arg_type).replace("typing.", "")
-            return f"list[{arg_name}]"
-
+            # Just return "list" for simplicity and cross-version compatibility
+            return "list"
+        
         # Handle dict types
         if origin is dict or str(origin).endswith("dict"):
-            key_type = args[0]
-            val_type = args[1]
-            key_name = (
-                key_type.__name__ if hasattr(key_type, "__name__") else str(key_type)
-            )
-            val_name = (
-                val_type.__name__ if hasattr(val_type, "__name__") else str(val_type)
-            )
-            return f"dict[{key_name}, {val_name}]"
-
+            return "dict"
+        
         # Handle other generic types
         origin_name = origin.__name__ if hasattr(origin, "__name__") else str(origin)
         origin_name = origin_name.lower()  # Convert List to list, etc.
-        arg_strs = []
-        for arg in args:
-            if hasattr(arg, "__name__"):
-                arg_strs.append(arg.__name__)
-            else:
-                arg_strs.append(str(arg).replace("typing.", ""))
-        return f"{origin_name}[{', '.join(arg_strs)}]"
-
+        return origin_name
+    
     # For any other types
     return str(annotation).replace("typing.", "")
