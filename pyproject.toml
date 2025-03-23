@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pydantic-prompt"
+version = "0.1.0"
+description = "Document Pydantic models for structured LLM outputs using Python docstrings"
+readme = "README.md"
+authors = [
+    {name = "Richard Abrich", email = "richard@openadapt.ai"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "pydantic>=2.0.0",
+]
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "mypy",
+    "ruff",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/OpenAdaptAI/PydanticPrompt"
+"Bug Tracker" = "https://github.com/OpenAdaptAI/PydanticPrompt/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "RET", # flake8-return
+    "SIM", # flake8-simplify
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["pydantic_prompt"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.0.0",
+]
