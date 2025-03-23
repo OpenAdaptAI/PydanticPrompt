@@ -1,5 +1,7 @@
-from typing import List, Optional
+from typing import Optional
+
 from pydantic import BaseModel, Field
+
 from pydantic_prompt import llm_documented
 
 
@@ -64,7 +66,7 @@ def test_nested_models():
         name: str
         """Person's name"""
 
-        addresses: List[Address] = []
+        addresses: list[Address] = []
         """List of addresses"""
 
     output = Person.format_for_llm()
