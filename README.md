@@ -1,5 +1,12 @@
 # PydanticPrompt
 
+[![PyPI version](https://img.shields.io/pypi/v/pydantic-prompt.svg)](https://pypi.org/project/pydantic-prompt/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/pydantic-prompt.svg)](https://pypi.org/project/pydantic-prompt/)
+[![Build Status](https://github.com/OpenAdaptAI/PydanticPrompt/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenAdaptAI/PydanticPrompt/actions)
+[![codecov](https://codecov.io/gh/OpenAdaptAI/PydanticPrompt/branch/main/graph/badge.svg)](https://codecov.io/gh/OpenAdaptAI/PydanticPrompt)
+[![License](https://img.shields.io/github/license/OpenAdaptAI/PydanticPrompt.svg)](https://github.com/OpenAdaptAI/PydanticPrompt/blob/main/LICENSE)
+[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
+
 A simple library to document [Pydantic](https://docs.pydantic.dev/) models for structured LLM outputs using standard Python docstrings.
 
 ## Installation
