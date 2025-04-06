@@ -256,18 +256,17 @@ export UV_LINK_MODE=copy
 
 ### Running tests
 
-Make sure your virtual environment is activated, then run:
+Make sure your virtual environment is activated. It's recommended to run `pytest` as a module with `python -m pytest` to ensure the Python path is set up correctly, especially for editable installs:
 
 ```bash
 # Run all tests
-pytest
+python -m pytest
 
 # Run with verbose output
-pytest -v
+python -m pytest -v
 
 # Run with coverage information
-pytest --cov=pydantic_prompt
-```
+python -m pytest --cov=pydantic_prompt
 
 ### Code formatting and linting
 
