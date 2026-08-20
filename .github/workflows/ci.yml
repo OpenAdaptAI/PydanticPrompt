@@ -68,8 +68,13 @@ jobs:
         python -m build
         twine check dist/*
         
+    # Pinned to a commit SHA, not the floating release/v1 tag, so an upstream
+    # change cannot alter a release with no commit here. v1.14.2 bundles twine
+    # 7.0.0 and packaging 26.2, which accept the Metadata-Version 2.5 that current
+    # hatchling emits. v1.14.0 rejected it and broke the openadapt-evals 0.91.0
+    # publish after the tag had already landed.
     - name: Publish to PyPI
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@release/v1
+      uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
