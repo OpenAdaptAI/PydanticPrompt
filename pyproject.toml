@@ -28,7 +28,7 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [
-    "pytest",
+    "pytest>=9.0.3",
     "mypy",
     "ruff",
 ]
